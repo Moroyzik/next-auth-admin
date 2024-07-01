@@ -5,6 +5,7 @@ import { UserRole } from "@prisma/client";
 import authConfig from "@/auth.config";
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
+import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
 export const {
   handlers: { GET, POST },
@@ -13,36 +14,47 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: '/auth/login',
-    error: '/auth/error'
+    signIn: "/auth/login",
+    error: "/auth/error",
   },
   events: {
-    async linkAccount({user}) {
+    async linkAccount({ user }) {
       await db.user.update({
         where: { id: user.id },
-        data: { emailVerified: new Date() }
-      })
-    }
+        data: { emailVerified: new Date() },
+      });
+    },
   },
   callbacks: {
-    async signIn({user, account}) {
+    async signIn({ user, account }) {
       //Allow OAuth without email verification
       if (account?.provider !== "credentials") {
-        return true
+        return true;
       }
 
       if (user?.id) {
-        const existingUser = await getUserById(user.id)
+        const existingUser = await getUserById(user.id);
 
         //Prevent sign in without email verification
         if (!existingUser?.emailVerified) {
-          return false
+          return false;
+        }
+
+        if (existingUser.isTwoFactorEnabled) {
+          const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
+
+          if (!twoFactorConfirmation) {
+            return false;
+          }
+
+          //Delete two factor confirmation for next sign in
+          await db.twoFactorConfirmation.delete({
+            where: { id: twoFactorConfirmation.id }
+          })
         }
       }
 
-      //TODO Add 2FA check
-
-      return true
+      return true;
     },
     async session({ token, session, user }) {
       if (session.user && token.sub) {
