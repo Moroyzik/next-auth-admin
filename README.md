@@ -11,14 +11,6 @@
   - [Environment Variables](#environment-variables)
   - [Pages description](#pages-description)
   - [Project Structure](#project-structure)
-  - [Todo List](#todo-list)
-    - [Task 1: Advanced Next.js Architecture (30 points)](#task-1-advanced-nextjs-architecture-30-points)
-    - [Task 2: Advanced Component Development (35 points)](#task-2-advanced-component-development-35-points)
-    - [Task 3: Large Dataset Handling (25 points)](#task-3-large-dataset-handling-25-points)
-    - [Task 4: Performance Optimization and Server-Side Rendering (25 points)](#task-4-performance-optimization-and-server-side-rendering-25-points)
-    - [Task 5: Advanced Features (30 points)](#task-5-advanced-features-30-points)
-    - [Task 6: Testing and Documentation (15 points)](#task-6-testing-and-documentation-15-points)
-  - [Deployment](#deployment)
   - [Stack, Libraries, and Tools](#stack-libraries-and-tools)
   - [Conclusions](#conclusions)
   - [Contribute](#contribute)
@@ -88,34 +80,28 @@ The environment variables are located in the `.env` file. The following environm
 
 ```bash
 next-auth-admin/
-│
-├── apps/
-│   │
-│   ├── remote/
-│   │   ├── public/
-│   │   ├── pages/
-│   │   ├── lib/
-│   │   ├── components/
-│   │   ├── styles/
-│   │   ├── ...
-│   │   ├── tailwind.config.js
-│   │   ├── next.config.js
-│   │   └── tsconfig.json
-│   │
-│   └── host/
-│       ├── cypress/
-│       ├── public/
-│       └── src/
-│            ├── assets/
-│            ├── components/
-│            ├── pages/
-│            ├── lib/
-│            ├── styles/
-│            ├── ...
-│            ├── tailwind.config.js
-│            ├── next.config.js
-│            └── tsconfig.json    
-└── docs/
+├── actions
+├── app
+│   ├── (protected)
+│   ├── api
+│   ├── auth
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── auth
+│   └── ui
+│       ├── form-error.tsx
+│       ├── form-success.tsx
+│       └── user-info.tsx
+├── data
+├── hooks
+├── lib
+├── node_modules
+├── prisma
+├── public
+├── schemas
 ```
 
 ## Stack, Libraries, and Tools
@@ -156,9 +142,7 @@ Despite the attractive integration, it is suggested to consider other stacks for
 
 Frontend Developer with more than 4 years of experience, specialized in creating fluid experiences and always attentive to the latest design trends and cutting-edge technologies.
 
-- [LinkedIn](https://www.linkedin.com/in/ma-marianoalvarez/)
-- [Website](https://marianoalvarez.dev/)
-
+- [LinkedIn](https://www.linkedin.com/in/dmitry-morozov-90668a287/)
 
 ## License
 
